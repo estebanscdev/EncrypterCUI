@@ -1,10 +1,15 @@
 #include <iostream>
 #include <fstream>
+//#include <string>
+using namespace std;
 
+//Diccionario encargado de encriptar cada char en en .txt
 unsigned short encrypter(char letra)
 {
 	switch (letra)
 	{
+	default:
+		return 0;
 	case 'a':
 		return 1;
 	case 'b':
@@ -59,16 +64,38 @@ unsigned short encrypter(char letra)
 		return 26;
 	case 'z':
 		return 27;
-
 	}
 }
 
-char x;
-int main() 
+
+int main()
 {
-	std::cin >> x;
-	std::ofstream MyFile("filename.txt");
-	MyFile << "Files can be tricky, but it is fun enough!";
-	MyFile.close();
-	std::cout << encrypter(x);
+	ofstream outFile("encrypted.csv");
+	string textIn;
+
+	//Line of text to encrytp
+	/////////////////////////////////
+	textIn = "h o l a";
+	/////////////////////////////////
+	
+
+	//Recorre el reglón de texto letra por letra.
+	for (short charPosition = 0; charPosition < textIn.length(); charPosition++)
+	{
+		if (charPosition != 0)
+		{
+			outFile << ", ";
+		}
+
+		char character = textIn.at(charPosition);
+		if (character == ' ')
+		{
+			outFile << " ";
+			continue;
+		}
+		outFile << encrypter(character);
+	}
+	outFile << "\n";
+	outFile.close();
+	cout << "successful process, encrypted.csv created";
 }
